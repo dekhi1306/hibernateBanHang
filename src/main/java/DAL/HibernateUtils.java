@@ -5,7 +5,6 @@
 package DAL;
 
 
-import Entity.Category;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,20 +42,4 @@ public class HibernateUtils {
         getSessionFactory().close();
     }
     
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-        try (Session session = HibernateUtils.getSessionFactory().openSession();) {
-            // Begin a unit of work
-            session.beginTransaction();
-            List<Category> category = session.createQuery("FROM Category", Category.class).list();
-            
-            //xem danh sách
-            category.forEach(System.out::println);
-            
-            //thêm mới
-            
-            session.getTransaction().commit();
-                    
-    }
-}}
+}
