@@ -14,7 +14,7 @@ import org.hibernate.Session;
  * @author Lộc
  */
 public class KhachHangDAL {
-    Session session;
+    private Session session;
     
     public KhachHangDAL()
     {
