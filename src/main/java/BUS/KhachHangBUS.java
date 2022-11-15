@@ -22,11 +22,6 @@ public class KhachHangBUS {
     public KhachHangBUS() {
         khBUS = null;
     }
-    
-    public KhachHangBUS(int i1)
-    {
-        list();
-    }
 
     public List<khachhang> getKhBUS() {
         return khBUS;
@@ -73,14 +68,5 @@ public class KhachHangBUS {
                 return;
             }
         }
-    }
-
-    public boolean check(String makh) {
-        for (khachhang kh : khBUS) {
-            if (String.valueOf(kh.getId_KH()).equals(makh)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

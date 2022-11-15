@@ -44,21 +44,4 @@ public class KhachHangDAL {
     {
         session.delete(c);
     }
-    
-    public static void main(String args[])
-    {
-        KhachHangDAL dal = new KhachHangDAL();
-        //KhachHang obj = dal.getKhachHang(1);
-        //System.out.println(obj.getKhachHangName());
-        List list = dal.loadKhachHang();
-        
-        for (Iterator iterator = list.iterator(); iterator.hasNext();){
-             khachhang v = (khachhang) iterator.next(); 
-             System.out.print("ID: " + v.getId_KH()); 
-             System.out.print("Name: " + v.getLast_name()); 
-             
-          }
-        
-    
-    }
 }
