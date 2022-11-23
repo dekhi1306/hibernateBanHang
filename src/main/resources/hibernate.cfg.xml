@@ -19,7 +19,6 @@
         <!-- Show all executed SQL to console -->
         <property name="show_sql">true</property>
         <mapping class="Entity.khachhang" />
-        <mapping class="Entity.danhmuc" />
         
     </session-factory>
 </hibernate-configuration>

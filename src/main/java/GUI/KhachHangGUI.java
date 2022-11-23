@@ -50,14 +50,13 @@ public class KhachHangGUI extends JPanel {
     private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT;
     private JTextField sortMaKH, sortHoKH, sortTenKH;
     private DefaultTableModel model;
-    private int DEFALUT_WIDTH;
+    private int DEFALUT_WIDTH=1300;
     private boolean EditOrAdd = true;//Cờ cho button Cofirm True:ADD || False:Edit
     private JButton btnAdd, btnEdit, btnDelete, btnConfirm, btnBack, btnFile;
 
     private boolean tableSelectionActive = true;
 
-    public KhachHangGUI(int width) {
-        DEFALUT_WIDTH = width;
+    public KhachHangGUI() {
         init();
     }
 
@@ -504,6 +503,7 @@ public class KhachHangGUI extends JPanel {
         });
         setEdit(false);
         itemView.add(searchBox);
+        
     }
 
     public void cleanView() //Xóa trắng các TextField
@@ -547,4 +547,5 @@ public class KhachHangGUI extends JPanel {
         txtSDT.setEditable(flag);
         txtTenKH.setEditable(flag);
     }
+    
 }

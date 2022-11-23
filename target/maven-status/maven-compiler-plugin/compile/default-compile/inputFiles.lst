@@ -1,7 +1,6 @@
-D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\Entity\KhachHang.java
+D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\Entity\khachhang.java
+D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\GUI\KhachHangGUI.java
+D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\GUI\MyTable.java
 D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\DAL\KhachHangDAL.java
-D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\Entity\Vegetable.java
 D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\DAL\HibernateUtils.java
-D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\DAL\VegetableDAL.java
-D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\DAL\CategoryDAL.java
-D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\Entity\Category.java
+D:\DAIHOC\Nam4\HKI\XDPMTheoMHPhanLop\DoAn\Project 2\hibernateBanHang\src\main\java\BUS\KhachHangBUS.java
