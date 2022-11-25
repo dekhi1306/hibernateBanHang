@@ -17,18 +17,18 @@ import java.util.List;
  */
 public class KhachHangBLL {
 
-    private List<khachhang> khBUS;
+    private List<khachhang> khBLL;
 
     public KhachHangBLL() {
-        khBUS = null;
+        khBLL = null;
     }
 
     public List<khachhang> getKhBUS() {
-        return khBUS;
+        return khBLL;
     }
 
     public khachhang getCustomerById(String MaKH) {
-        for (khachhang kh : khBUS) {
+        for (khachhang kh : khBLL) {
             if (kh.getId_KH() == Integer.parseInt(MaKH)) {
                 return kh;
             }
@@ -38,20 +38,20 @@ public class KhachHangBLL {
 
     public void list() {
         KhachHangDAL dal = new KhachHangDAL();
-        khBUS = new ArrayList<>();
-        khBUS = dal.loadKhachHang();
+        khBLL = new ArrayList<>();
+        khBLL = dal.loadKhachHang();
     }
 
     public void add(khachhang khach) {
         KhachHangDAL dal = new KhachHangDAL();
         dal.addKhachHang(khach);
-        khBUS.add(khach);
+        khBLL.add(khach);
     }
 
     public void delete(khachhang khach) {
-        for (khachhang khachhang : khBUS) {
+        for (khachhang khachhang : khBLL) {
             if (khachhang.getId_KH() == khach.getId_KH()) {
-                khBUS.remove(khachhang);
+                khBLL.remove(khachhang);
                 KhachHangDAL dal = new KhachHangDAL();
                 dal.deleteKhachHang(khach);
                 return;
@@ -60,9 +60,9 @@ public class KhachHangBLL {
     }
 
     public void set(khachhang khach) {
-        for (int i = 0; i < khBUS.size(); i++) {
-            if (khBUS.get(i).getId_KH() == khach.getId_KH()) {
-                khBUS.set(i, khach);
+        for (int i = 0; i < khBLL.size(); i++) {
+            if (khBLL.get(i).getId_KH() == khach.getId_KH()) {
+                khBLL.set(i, khach);
                 KhachHangDAL dal = new KhachHangDAL();
                 dal.updateKhachHang(khach);
                 return;

@@ -44,7 +44,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class KhachHangGUI extends JPanel {
 
-    private KhachHangBLL khBUS = new KhachHangBLL();
+    private KhachHangBLL khBLL = new KhachHangBLL();
 
     private JTable tbl;
     private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT;
@@ -231,10 +231,10 @@ public class KhachHangGUI extends JPanel {
                 }
                 int i = JOptionPane.showConfirmDialog(null, "Xác nhận xóa", "Alert", JOptionPane.YES_NO_OPTION);
                 if (i == 0) {
-                    khBUS.delete(khBUS.getCustomerById(txtMaKH.getText()));
+                    khBLL.delete(khBLL.getCustomerById(txtMaKH.getText()));
                     cleanView();
                     tbl.clearSelection();
-                    outModel(model, (ArrayList<khachhang>) khBUS.getKhBUS());
+                    outModel(model, (ArrayList<khachhang>) khBLL.getKhBUS());
                 }
             }
         });
@@ -294,8 +294,8 @@ public class KhachHangGUI extends JPanel {
                         JOptionPane.showMessageDialog(null ,"Số điện thoại không hợp lệ!! Vui lòng nhập 10 hoặc 11 số !!!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    for (int j = 0; j < khBUS.getKhBUS().size(); j++) {
-                        if (khBUS.getKhBUS().get(j).getPhone().equals(sdt)) {
+                    for (int j = 0; j < khBLL.getKhBUS().size(); j++) {
+                        if (khBLL.getKhBUS().get(j).getPhone().equals(sdt)) {
                             JOptionPane.showMessageDialog(null ,"Số điện thoại đã tồn tại, vui lòng nhập số khác !!!", "Error", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
@@ -311,9 +311,9 @@ public class KhachHangGUI extends JPanel {
                         if(!hoKH.equals("") && !tenKH.equals("") && !dienThoai.equals("")){
                             //Upload khách hàng lên DAO và BUS
                         khachhang kh = new khachhang(hoKH, tenKH, dienThoai);
-                        khBUS.add(kh);           
+                        khBLL.add(kh);           
                         JOptionPane.showMessageDialog(null ,"Thêm khách hàng thành công !!!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                        outModel(model, (ArrayList<khachhang>) khBUS.getKhBUS());
+                        outModel(model, (ArrayList<khachhang>) khBLL.getKhBUS());
                         cleanView();
                         }
                         else{                          
@@ -331,8 +331,8 @@ public class KhachHangGUI extends JPanel {
                         JOptionPane.showMessageDialog(null ,"Số điện thoại không hợp lệ!! Vui lòng nhập 10 hoặc 11 số !!!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    for (int j = 0; j < khBUS.getKhBUS().size(); j++) {
-                        if (khBUS.getKhBUS().get(j).getPhone().equals(sdt) && khBUS.getKhBUS().get(j).getId_KH() != Integer.parseInt(txtMaKH.getText())) {
+                    for (int j = 0; j < khBLL.getKhBUS().size(); j++) {
+                        if (khBLL.getKhBUS().get(j).getPhone().equals(sdt) && khBLL.getKhBUS().get(j).getId_KH() != Integer.parseInt(txtMaKH.getText())) {
                             JOptionPane.showMessageDialog(null ,"Số điện thoại đã tồn tại, vui lòng nhập số khác !!!", "Error", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
@@ -348,8 +348,8 @@ public class KhachHangGUI extends JPanel {
                             //Upload khách hàng lên DAO và BUS
                             khachhang kh = new khachhang(hoKH, tenKH, dienThoai);
                             kh.setId_KH(maKH);
-                            khBUS.set(kh);
-                            outModel(model, (ArrayList<khachhang>) khBUS.getKhBUS());// Load lại table                         
+                            khBLL.set(kh);
+                            outModel(model, (ArrayList<khachhang>) khBLL.getKhBUS());// Load lại table                         
                             JOptionPane.showMessageDialog(null ,"Sửa thông tin khách hàng thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                         }
                         else{                          
@@ -534,10 +534,10 @@ public class KhachHangGUI extends JPanel {
 
     public void list() // Chép ArrayList lên table
     {
-        if (khBUS.getKhBUS() == null) {
-            khBUS.list();
+        if (khBLL.getKhBUS() == null) {
+            khBLL.list();
         }
-        ArrayList<khachhang> nv = (ArrayList<khachhang>) khBUS.getKhBUS();
+        ArrayList<khachhang> nv = (ArrayList<khachhang>) khBLL.getKhBUS();
 //        model.setRowCount(0);
         outModel(model, nv);
     }
