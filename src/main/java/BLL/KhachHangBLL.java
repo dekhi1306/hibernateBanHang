@@ -23,7 +23,7 @@ public class KhachHangBLL {
         khBLL = null;
     }
 
-    public List<khachhang> getKhBUS() {
+    public List<khachhang> getList() {
         return khBLL;
     }
 
