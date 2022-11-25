@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import BUS.KhachHangBUS;
+import BLL.KhachHangBLL;
 import Entity.khachhang;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -44,7 +44,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class KhachHangGUI extends JPanel {
 
-    private KhachHangBUS khBUS = new KhachHangBUS();
+    private KhachHangBLL khBUS = new KhachHangBLL();
 
     private JTable tbl;
     private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT;

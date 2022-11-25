@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BUS;
+package BLL;
 
 import DAL.KhachHangDAL;
 import Entity.khachhang;
@@ -15,11 +15,11 @@ import java.util.List;
  *
  * @author Asus
  */
-public class KhachHangBUS {
+public class KhachHangBLL {
 
     private List<khachhang> khBUS;
 
-    public KhachHangBUS() {
+    public KhachHangBLL() {
         khBUS = null;
     }
 
