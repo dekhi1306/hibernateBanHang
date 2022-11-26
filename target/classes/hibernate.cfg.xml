@@ -19,6 +19,9 @@
         <!-- Show all executed SQL to console -->
         <property name="show_sql">true</property>
         <mapping class="Entity.khachhang" />
+        <mapping class="Entity.phieunhaphang" />
+        <mapping class="Entity.nhacungcap" />
+        <mapping class="Entity.nhanvien" />
         
     </session-factory>
 </hibernate-configuration>
