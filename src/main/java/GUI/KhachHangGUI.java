@@ -47,12 +47,12 @@ public class KhachHangGUI extends JPanel {
     private KhachHangBLL khBLL = new KhachHangBLL();
 
     private JTable tbl;
-    private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT, txtSearch;
+    private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT;
     private JTextField sortMaKH, sortHoKH, sortTenKH;
     private DefaultTableModel model;
     private int DEFALUT_WIDTH=1300;
     private boolean EditOrAdd = true;//Cờ cho button Cofirm True:ADD || False:Edit
-    private JButton btnAdd, btnEdit, btnDelete, btnConfirm, btnBack, btnFile, btnSearch;
+    private JButton btnAdd, btnEdit, btnDelete, btnConfirm, btnBack, btnFile;
 
     private boolean tableSelectionActive = true;
 
@@ -369,33 +369,6 @@ public class KhachHangGUI extends JPanel {
                     }
                 }
 
-            }
-        });
-        
-        btnSearch.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-                if(khBLL.getList().isEmpty()){
-                    return;
-                }
-                
-                ArrayList<khachhang> listSearch=new ArrayList<khachhang>();
-                
-                try {
-                    listSearch=khBLL.search(txtSearch.getText());
-                } catch (Exception ex) {
-                    System.out.println(ex);
-                }
-
-                if (listSearch.size()==0){
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy kết quả nào!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    khBLL.list();
-                    outModel(model, (ArrayList<khachhang>) khBLL.getList());
-                    tbl.setModel(model);
-                }
-                else{
-                    outModel(model, (ArrayList<khachhang>) listSearch);
-                    tbl.setModel(model);
-                }
             }
         });
 
