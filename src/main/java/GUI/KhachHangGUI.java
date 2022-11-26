@@ -47,12 +47,12 @@ public class KhachHangGUI extends JPanel {
     private KhachHangBLL khBLL = new KhachHangBLL();
 
     private JTable tbl;
-    private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT;
+    private JTextField txtMaKH, txtHoKH, txtTenKH, txtSDT, txtSearch;
     private JTextField sortMaKH, sortHoKH, sortTenKH;
     private DefaultTableModel model;
     private int DEFALUT_WIDTH=1300;
     private boolean EditOrAdd = true;//Cờ cho button Cofirm True:ADD || False:Edit
-    private JButton btnAdd, btnEdit, btnDelete, btnConfirm, btnBack, btnFile;
+    private JButton btnAdd, btnEdit, btnDelete, btnConfirm, btnBack, btnFile, btnSearch;
 
     private boolean tableSelectionActive = true;
 
@@ -226,7 +226,8 @@ public class KhachHangGUI extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (txtMaKH.getText().equals("")) {
 //                    new JOptionPane.("Vui lòng chọn khách hàng cần xóa !!!", Toast.SHORT_DELAY);
-                    JOptionPane.showMessageDialog(null ,"Vui lòng chọn khách hàng cần xóa !!!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null ,"Vui lòng chọn khách hàng cần xóa !!!", "Warning", 
+                            JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 int i = JOptionPane.showConfirmDialog(null, "Xác nhận xóa", "Alert", JOptionPane.YES_NO_OPTION);
@@ -244,7 +245,8 @@ public class KhachHangGUI extends JPanel {
             public void mouseClicked(MouseEvent e) {
 
                 if (txtMaKH.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null ,"Vui lòng chọn khách hàng cần sửa !!!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null ,"Vui lòng chọn khách hàng cần sửa !!!", "Warning", 
+                            JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 tableSelectionActive = false;
@@ -291,12 +293,14 @@ public class KhachHangGUI extends JPanel {
                     Pattern pattern = Pattern.compile("^\\d{10,11}$");
                     Matcher m = pattern.matcher(sdt);   //so sánh
                     if (!m.matches()) {
-                        JOptionPane.showMessageDialog(null ,"Số điện thoại không hợp lệ!! Vui lòng nhập 10 hoặc 11 số !!!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null ,"Số điện thoại không hợp lệ!! Vui lòng nhập 10 hoặc 11 số !!!", "Error", 
+                                JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     for (int j = 0; j < khBLL.getList().size(); j++) {
                         if (khBLL.getList().get(j).getPhone().equals(sdt)) {
-                            JOptionPane.showMessageDialog(null ,"Số điện thoại đã tồn tại, vui lòng nhập số khác !!!", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null ,"Số điện thoại đã tồn tại, vui lòng nhập số khác !!!", "Error", 
+                                    JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }
@@ -312,12 +316,14 @@ public class KhachHangGUI extends JPanel {
                             //Upload khách hàng lên DAO và BUS
                         khachhang kh = new khachhang(hoKH, tenKH, dienThoai);
                         khBLL.add(kh);           
-                        JOptionPane.showMessageDialog(null ,"Thêm khách hàng thành công !!!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null ,"Thêm khách hàng thành công !!!", "Thành công", 
+                                JOptionPane.INFORMATION_MESSAGE);
                         outModel(model, (ArrayList<khachhang>) khBLL.getList());
                         cleanView();
                         }
                         else{                          
-                            JOptionPane.showMessageDialog(null ,"Vui lòng nhập đầy đủ thông tin !!!", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null ,"Vui lòng nhập đầy đủ thông tin !!!", "Error", 
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
@@ -328,12 +334,15 @@ public class KhachHangGUI extends JPanel {
                     Pattern pattern = Pattern.compile("^\\d{10,11}$");
                     Matcher m = pattern.matcher(sdt);   //so sánh
                     if (!m.matches()) {
-                        JOptionPane.showMessageDialog(null ,"Số điện thoại không hợp lệ!! Vui lòng nhập 10 hoặc 11 số !!!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null ,"Số điện thoại không hợp lệ!! Vui lòng nhập 10 hoặc 11 số !!!", "Error", 
+                                JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     for (int j = 0; j < khBLL.getList().size(); j++) {
-                        if (khBLL.getList().get(j).getPhone().equals(sdt) && khBLL.getList().get(j).getId_KH() != Integer.parseInt(txtMaKH.getText())) {
-                            JOptionPane.showMessageDialog(null ,"Số điện thoại đã tồn tại, vui lòng nhập số khác !!!", "Error", JOptionPane.ERROR_MESSAGE);
+                        if (khBLL.getList().get(j).getPhone().equals(sdt) && 
+                                khBLL.getList().get(j).getId_KH() != Integer.parseInt(txtMaKH.getText())) {
+                            JOptionPane.showMessageDialog(null ,"Số điện thoại đã tồn tại, vui lòng nhập số khác !!!", "Error", 
+                                    JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }
@@ -350,7 +359,8 @@ public class KhachHangGUI extends JPanel {
                             kh.setId_KH(maKH);
                             khBLL.set(kh);
                             outModel(model, (ArrayList<khachhang>) khBLL.getList());// Load lại table                         
-                            JOptionPane.showMessageDialog(null ,"Sửa thông tin khách hàng thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null ,"Sửa thông tin khách hàng thành công", "Thành công", 
+                                    JOptionPane.INFORMATION_MESSAGE);
                         }
                         else{                          
                             JOptionPane.showMessageDialog(null ,"Vui lòng nhập đầy đủ thông tin !!!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -359,6 +369,33 @@ public class KhachHangGUI extends JPanel {
                     }
                 }
 
+            }
+        });
+        
+        btnSearch.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                if(khBLL.getList().isEmpty()){
+                    return;
+                }
+                
+                ArrayList<khachhang> listSearch=new ArrayList<khachhang>();
+                
+                try {
+                    listSearch=khBLL.search(txtSearch.getText());
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+
+                if (listSearch.size()==0){
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy kết quả nào!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    khBLL.list();
+                    outModel(model, (ArrayList<khachhang>) khBLL.getList());
+                    tbl.setModel(model);
+                }
+                else{
+                    outModel(model, (ArrayList<khachhang>) listSearch);
+                    tbl.setModel(model);
+                }
             }
         });
 

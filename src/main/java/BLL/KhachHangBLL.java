@@ -69,4 +69,17 @@ public class KhachHangBLL {
             }
         }
     }
+    
+    public ArrayList<khachhang> search(String input) throws Exception {
+        list();
+        ArrayList<khachhang> res=new ArrayList<khachhang>();
+        
+        for(khachhang k: khBLL){
+            if(k.getFirst_name().contains(input)
+                    || k.getLast_name().contains(input)
+                    || k.getPhone().contains(input))
+                res.add(k);
+        }
+        return res;
+    } 
 }
