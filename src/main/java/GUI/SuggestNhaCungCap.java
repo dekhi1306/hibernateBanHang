@@ -5,8 +5,8 @@
  */
 package GUI;
 
-import BUS.NCCBUS;
-import DTO.NhaCungCapDTO;
+import BLL.NCCBLL;
+import Entity.nhacungcap;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -42,7 +42,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class SuggestNhaCungCap extends JDialog {
 
-    private NCCBUS nccBUS = new NCCBUS();
+    private NCCBLL nccBLL = new NCCBLL();
     private JTextField txtMaNCC, txtTen, txtDiaChi, txtPhone;
     private DefaultTableModel model;
     private JTable tbl;
@@ -296,10 +296,10 @@ public class SuggestNhaCungCap extends JDialog {
         setVisible(true);
     }
 
-    public void outModel(DefaultTableModel model, ArrayList<NhaCungCapDTO> kh) {
+    public void outModel(DefaultTableModel model, ArrayList<nhacungcap> kh) {
         Vector data;
         model.setRowCount(0);
-        for (NhaCungCapDTO s : kh) {
+        for (nhacungcap s : kh) {
             data = new Vector();
             data.add(" " + s.getId_NCC());
             data.add(" " + s.getName_NCC());
@@ -311,10 +311,10 @@ public class SuggestNhaCungCap extends JDialog {
     }
 
     public void listKH() {
-        if (nccBUS.getNccBUS() == null) {
-            nccBUS.list();
+        if (nccBLL.getList() == null) {
+            nccBLL.list();
         }
-        ArrayList<NhaCungCapDTO> nv = (ArrayList<NhaCungCapDTO>) nccBUS.getNccBUS();
+        ArrayList<nhacungcap> nv = (ArrayList<nhacungcap>) nccBLL.getList();
         model.setRowCount(0);
         outModel(model, nv);
     }
