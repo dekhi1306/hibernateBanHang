@@ -6,10 +6,9 @@
 package GUI;
 
 import BUS.NguyenLieuBUS;
-import BUS.PhieuNhapHangBUS;
-import BUS.ct_PhieuNhapHangBUS;
-import DTO.NguyenLieuDTO;
-import DTO.PhieuNhapHangDTO;
+import BLL.PhieuNhapHangBLL;
+import BLL.ct_PNHBLL;
+import Entity.NguyenLieuDTO;
 import Entity.ct_phieunhaphang;
 import Entity.phieunhaphang;
 import java.awt.Color;
@@ -21,9 +20,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -41,8 +44,8 @@ import javax.swing.table.DefaultTableModel;
  */
 class CT_NhapHangGUI extends JFrame implements ActionListener {
 
-    private ct_PhieuNhapHangBUS ctBUS = new ct_PhieuNhapHangBUS();
-    private PhieuNhapHangBUS pnhBUS = new PhieuNhapHangBUS();
+    private ct_PNHBLL ctBUS = new ct_PNHBLL();
+    private PhieuNhapHangBLL pnhBUS = new PhieuNhapHangBLL();
     private NguyenLieuBUS nlBUS = new NguyenLieuBUS();
     private int maPhieuPhapHang;
     private int maNV, maNCC;
@@ -57,16 +60,16 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
     public CT_NhapHangGUI(String maPhieuPhapHang) {
         this.maPhieuPhapHang = Integer.parseInt(maPhieuPhapHang.trim());
         flag = false;
-        ctBUS.listByCode(Integer.parseInt(maPhieuPhapHang.trim()));
+        ctBUS.listByidPNH(Integer.parseInt(maPhieuPhapHang.trim()));
         init();
     }
 
     CT_NhapHangGUI(int maNV, int maNCC) {
         this.maNV = maNV;
         this.maNCC = maNCC;
-        PhieuNhapHangDTO pnh = new PhieuNhapHangDTO(maNCC, maNV, LocalDate.now(), 0.0f);
+        phieunhaphang pnh = new phieunhaphang(maNCC, maNV, LocalDate.now(), 0.0f);
         pnhBUS.add(pnh);
-        maPhieuPhapHang = pnhBUS.getPnhBUS().get(0).getId_PNH();
+        maPhieuPhapHang = pnhBUS.getList().get(0).getId_PNH();
         init();
     }
 
@@ -168,7 +171,8 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (txtMaNL.getText().equals("")) {
-                    new Toast.ToastWarning("Vui lòng chọn mã nguyên liệu !!!", Toast.SHORT_DELAY);
+                    JOptionPane.showMessageDialog(null ,"Vui lòng chọn mã nguyên liệu !!!", "Warning", 
+                            JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 txtTenNL.requestFocus();
@@ -187,11 +191,11 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                     int soLuong = Math.abs(sl);
                     boolean flag2 = false;
 
-                    if (ctBUS.getCt_pnhBUS() != null) {
-                        for (int i = 0; i < ctBUS.getCt_pnhBUS().size(); i++) {
-                            if (ctBUS.getCt_pnhBUS().get(i).getId_NL() == maNL) {
+                    if (ctBUS.getList() != null) {
+                        for (int i = 0; i < ctBUS.getList().size(); i++) {
+                            if (ctBUS.getList().get(i).getId_NL() == maNL) {
                                 flag = true;
-                                if (ctBUS.getCt_pnhBUS().get(i).getAmount() >= soLuong) {
+                                if (ctBUS.getList().get(i).getAmount() >= soLuong) {
                                     flag2 = true;
                                     break;
                                 }
@@ -199,17 +203,20 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                             }
                         }
                     } else {
-                        new Toast.ToastError("Chưa có nguyên liệu nào được nhập !!!, xóa thấy bại", Toast.SHORT_DELAY);
+                        JOptionPane.showMessageDialog(null ,"Chưa có nguyên liệu nào được nhập !!!, xóa thất bại", "Error", 
+                            JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
                     if (!flag) {
-                        new Toast.ToastError("Không tìm thấy mã nguyên liệu trong bảng nguyên liệu đã thêm, vui lòng nhập lại !!!i", Toast.SHORT_DELAY);
+                        JOptionPane.showMessageDialog(null ,"Không tìm thấy mã nguyên liệu trong bảng nguyên liệu đã thêm, vui lòng nhập lại !!!", "Error", 
+                            JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
                     if (!flag2) {
-                        new Toast.ToastError("Số lượng nguyên liệu cần xóa vượt quá số lượng nguyên liệu mà bạn đã nhập , vui lòng nhập lại !!!", Toast.SHORT_DELAY);
+                        JOptionPane.showMessageDialog(null ,"Số lượng nguyên liệu cần xóa vượt quá số lượng nguyên liệu mà bạn đã nhập , vui lòng nhập lại !!!", "Error", 
+                            JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
@@ -219,22 +226,26 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                             nl = nguyenLieuDTO;
                         }
                     }
-                    for (int i = 0; i < ctBUS.getCt_pnhBUS().size(); i++) {
-                        if (ctBUS.getCt_pnhBUS().get(i).getId_NL() == maNL) {
-                            if (ctBUS.getCt_pnhBUS().get(i).getAmount() == soLuong) {
+                    for (int i = 0; i < ctBUS.getList().size(); i++) {
+                        if (ctBUS.getList().get(i).getId_NL() == maNL) {
+                            if (ctBUS.getList().get(i).getAmount() == soLuong) {
                                 ctBUS.deleteByCode(maPhieuPhapHang, maNL);
                                 break;
                             }
-                            ctBUS.getCt_pnhBUS().get(i).setAmount(ctBUS.getCt_pnhBUS().get(i).getAmount() - soLuong);
+                            ctBUS.getList().get(i).setAmount(ctBUS.getList().get(i).getAmount() - soLuong);
                             float tongGia = (float) (soLuong * 1.0 * nl.getPrice());
-                            ctBUS.getCt_pnhBUS().get(i).setTotal_money(ctBUS.getCt_pnhBUS().get(i).getTotal_money() - tongGia);
-                            ctBUS.set(ctBUS.getCt_pnhBUS().get(i));
+                            ctBUS.getList().get(i).setTotal_money(ctBUS.getList().get(i).getTotal_money() - tongGia);
+                            try {
+                                ctBUS.set(ctBUS.getList().get(i));
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(CT_NhapHangGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                     }
                     nlBUS.subtractAmount(nl, soLuong);
                     cleanView();
                     tbl.clearSelection();
-                    outModel(model, (ArrayList<ct_PhieuNhapHangDTO>) ctBUS.getCt_pnhBUS());
+                    outModel(model, (ArrayList<ct_phieunhaphang>) ctBUS.getList());
 
                 }
             }
@@ -244,7 +255,8 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (txtMaNL.getText().equals("") || txtSL.getText().equals("")) {
-                    new Toast.ToastWarning("Vui lòng nhập đầy đủ thông tin !!!", Toast.SHORT_DELAY);
+                    JOptionPane.showMessageDialog(null ,"Vui lòng nhập đầy đủ thông tin !!!", "Warning", 
+                            JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 txtTenNL.requestFocus();
@@ -264,7 +276,8 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                     }
                 }
                 if (!flag) {
-                    new Toast.ToastError("Không tìm thấy mã nguyên liệu, vui lòng nhập lại !!!", Toast.SHORT_DELAY);
+                    JOptionPane.showMessageDialog(null ,"Không tìm thấy mã nguyên liệu, vui lòng nhập lại !!!", "Error", 
+                            JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 int sl = 0;
@@ -278,12 +291,16 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                 float tongGia = (float) (soLuong * 1.0 * nl.getPrice());
                 boolean updateOrAdd = false;
 
-                if (ctBUS.getCt_pnhBUS() != null) {
-                    for (int i = 0; i < ctBUS.getCt_pnhBUS().size(); i++) {
-                        if (ctBUS.getCt_pnhBUS().get(i).getId_NL() == maNL) {
-                            ctBUS.getCt_pnhBUS().get(i).setAmount(ctBUS.getCt_pnhBUS().get(i).getAmount() + soLuong);
-                            ctBUS.getCt_pnhBUS().get(i).setTotal_money(ctBUS.getCt_pnhBUS().get(i).getTotal_money() + tongGia);
-                            ctBUS.set(ctBUS.getCt_pnhBUS().get(i));
+                if (ctBUS.getList() != null) {
+                    for (int i = 0; i < ctBUS.getList().size(); i++) {
+                        if (ctBUS.getList().get(i).getId_NL() == maNL) {
+                            ctBUS.getList().get(i).setAmount(ctBUS.getList().get(i).getAmount() + soLuong);
+                            ctBUS.getList().get(i).setTotal_money(ctBUS.getList().get(i).getTotal_money() + tongGia);
+                            try {
+                                ctBUS.set(ctBUS.getList().get(i));
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(CT_NhapHangGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             updateOrAdd = true;
                             break;
                         }
@@ -291,28 +308,29 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                 }
 
                 if (!updateOrAdd) {
-                    ct_PhieuNhapHangDTO ctNhapHangDTO = new ct_PhieuNhapHangDTO(maPhieuPhapHang, maNL, soLuong, tongGia, nl.getPrice());
+                    ct_phieunhaphang ctNhapHangDTO = new ct_phieunhaphang(maPhieuPhapHang, maNL, soLuong, tongGia, nl.getPrice());
                     ctBUS.add(ctNhapHangDTO);
                 }
 
                 nlBUS.addAmount(nl, soLuong);
                 cleanView();
                 tbl.clearSelection();
-                outModel(model, (ArrayList<ct_PhieuNhapHangDTO>) ctBUS.getCt_pnhBUS());
+                outModel(model, (ArrayList<ct_phieunhaphang>) ctBUS.getList());
             }
         });
 
         btnConfirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                PhieuNhapHangDTO pnhdto = pnhBUS.getPnhBUS().get(0);
+                phieunhaphang pnhdto = pnhBUS.getList().get(0);
                 float thanhTien = 0.f;
-                for (ct_PhieuNhapHangDTO phieuNhapHangDTO : ctBUS.getCt_pnhBUS()) {
+                for (ct_phieunhaphang phieuNhapHangDTO : ctBUS.getList()) {
                     thanhTien += phieuNhapHangDTO.getTotal_money();
                 }
                 pnhdto.setTotal_money(thanhTien);
                 pnhBUS.set(pnhdto);
-                new Toast.ToastSuccessful("Thành công", "Nhập hàng thành công !!!", Toast.SHORT_DELAY);
+                JOptionPane.showMessageDialog(null ,"Nhập hàng thành công !!!", "Success", 
+                            JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
         });
@@ -357,8 +375,8 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
         scroll.setBackground(null);
 
         itemView.add(scroll);
-        if (ctBUS.getCt_pnhBUS() != null && !ctBUS.getCt_pnhBUS().isEmpty()) {
-            outModel(model, (ArrayList<ct_PhieuNhapHangDTO>) ctBUS.getCt_pnhBUS());
+        if (ctBUS.getList() != null && !ctBUS.getList().isEmpty()) {
+            outModel(model, (ArrayList<ct_phieunhaphang>) ctBUS.getList());
         }
         add(itemView);
         /**
@@ -395,10 +413,10 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
         txtGiaBan.setText("");
     }
 
-    public void outModel(DefaultTableModel model, ArrayList<ct_PhieuNhapHangDTO> ctpnh) {     //xuat tu arraylist len table
+    public void outModel(DefaultTableModel model, ArrayList<ct_phieunhaphang> ctpnh) {     //xuat tu arraylist len table
         Vector data;
         model.setRowCount(0);
-        for (ct_PhieuNhapHangDTO h : ctpnh) {
+        for (ct_phieunhaphang h : ctpnh) {
             data = new Vector();
             data.add(h.getId_NL());
             data.add(h.getAmount());
@@ -410,7 +428,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
     }
 
     public phieunhaphang getDTOContent() {
-        return pnhBUS.getPnhBUS().get(0);
+        return pnhBUS.getList().get(0);
     }
 
     @Override
@@ -419,10 +437,10 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
             int mess = JOptionPane.showConfirmDialog(null, "Xác nhận hủy nhập hàng", "Thông báo", JOptionPane.YES_NO_OPTION);
             if (mess == 0) { //yes
 
-                for (int i = 0; i < ctBUS.getCt_pnhBUS().size(); i++) {
+                for (int i = 0; i < ctBUS.getList().size(); i++) {
                     for (NguyenLieuDTO nguyenLieuDTO : nlBUS.getNlBUS()) {
-                        if (nguyenLieuDTO.getId_NL() == ctBUS.getCt_pnhBUS().get(i).getId_NL()) {
-                            nlBUS.subtractAmount(nguyenLieuDTO, ctBUS.getCt_pnhBUS().get(i).getAmount());
+                        if (nguyenLieuDTO.getId_NL() == ctBUS.getList().get(i).getId_NL()) {
+                            nlBUS.subtractAmount(nguyenLieuDTO, ctBUS.getList().get(i).getAmount());
                             break;
                         }
                     }
@@ -430,7 +448,8 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
 
                 ctBUS.delete(maPhieuPhapHang);
                 pnhBUS.delete(maPhieuPhapHang);
-                new Toast.ToastSuccessful("Thành công", "Hủy phiếu nhập hàng thành công !!!", Toast.SHORT_DELAY);
+                JOptionPane.showMessageDialog(null ,"Hủy phiếu nhập hàng thành công !!!", "Success", 
+                            JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
         }

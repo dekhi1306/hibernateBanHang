@@ -20,12 +20,12 @@ public class ct_phieunhaphang {
     @Id
     @ManyToOne
     @JoinColumn(name="id_PNH")
-    private phieunhaphang id_PNH;
+    private int id_PNH;
     
     @Id
     @ManyToOne
     @JoinColumn(name="id_NL")
-    private nguyenlieu id_NL;
+    private int id_NL;
     
     @Column
     private int amount;

@@ -47,12 +47,12 @@ public class PhieuNhapHangBLL {
         pnhBLL.add(dal.findByID(pnh.getId_PNH()));
     }
     
-    public void delete(phieunhaphang pnh) {
+    public void delete(int id_PNH) {
         for (phieunhaphang p: pnhBLL) {
-            if (pnh.getId_PNH() == p.getId_PNH()) {
-                pnhBLL.remove(pnh);
+            if (p.getId_PNH() == id_PNH) {
+                pnhBLL.remove(p);
                 PhieuNhapHangDAL dal = new PhieuNhapHangDAL();
-                dal.deletePNH(pnh);
+                dal.deletePNH(p);
                 return;
             }
         }

@@ -6,7 +6,7 @@
 package GUI;
 
 import BLL.PhieuNhapHangBLL;
-import BLL.ct_PhieuNhapHangBUS;
+import BLL.ct_PNHBLL;
 import Entity.phieunhaphang;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JDayChooser;
@@ -45,7 +45,7 @@ import javax.swing.table.TableRowSorter;
 public class NhapHangGUI extends JPanel implements ActionListener {
 
     private PhieuNhapHangBLL pnhBUS = new PhieuNhapHangBLL();
-    private ct_PhieuNhapHangBUS ctBUS = new ct_PhieuNhapHangBUS();
+    private ct_PNHBLL ctBUS = new ct_PNHBLL();
     private int DEFAULT_WIDTH;
 
     private JLabel lbMaPNH, lbMaNCC, lbMaNV, lbNgayHD, lbTongTien;

@@ -46,11 +46,6 @@ public class ct_PNHDAL {
     public void deleteCTPNH(ct_phieunhaphang ctpnh) {
         session.delete(ctpnh);
     }
-    
-//    public void deleteByIdBillAndProduct(int id_PNH,int id_NL) throws FileNotFoundException {
-//        String sql = "DELETE FROM ct_phieunhaphang WHERE id_PNH = "+id_PNH+" AND id_NL = "+id_NL;
-//        session.delete(sql);
-//    }
 
     public void updateCTPNH(ct_phieunhaphang ctpnh) throws FileNotFoundException {
         session.update(ctpnh);
