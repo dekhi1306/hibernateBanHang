@@ -6,7 +6,6 @@
 package DAL;
 
 import Entity.khachhang;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Session;
 /**
@@ -27,7 +26,6 @@ public class KhachHangDAL {
         khachhang = session.createQuery("FROM khachhang", khachhang.class).list();
         session.getTransaction().commit();
         return khachhang;
-
     }
     
     public void addKhachHang(khachhang c)

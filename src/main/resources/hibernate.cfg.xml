@@ -20,8 +20,10 @@
         <property name="show_sql">true</property>
         <mapping class="Entity.khachhang" />
         <mapping class="Entity.phieunhaphang" />
+        <mapping class="Entity.ct_phieunhaphang" />
         <mapping class="Entity.nhacungcap" />
         <mapping class="Entity.nhanvien" />
+        <mapping class="Entity.nguyenlieu" />
         
     </session-factory>
 </hibernate-configuration>

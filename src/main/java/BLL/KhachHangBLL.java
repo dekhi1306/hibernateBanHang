@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class KhachHangBLL {
 
-    private List<khachhang> khBLL;
+    private List<khachhang> khBLL = new ArrayList<>();
 
     public KhachHangBLL() {
         khBLL = null;

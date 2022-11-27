@@ -33,6 +33,5 @@ public class phieunhaphang {
     
     @Column
     private float total_money;
-    
    
 }
