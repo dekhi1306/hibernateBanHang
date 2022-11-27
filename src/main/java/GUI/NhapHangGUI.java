@@ -44,8 +44,8 @@ import javax.swing.table.TableRowSorter;
  */
 public class NhapHangGUI extends JPanel implements ActionListener {
 
-    private PhieuNhapHangBLL pnhBUS = new PhieuNhapHangBLL();
-    private ct_PNHBLL ctBUS = new ct_PNHBLL();
+    private PhieuNhapHangBLL pnhBLL = new PhieuNhapHangBLL();
+    private ct_PNHBLL ctBLL = new ct_PNHBLL();
     private int DEFAULT_WIDTH;
 
     private JLabel lbMaPNH, lbMaNCC, lbMaNV, lbNgayHD, lbTongTien;
@@ -219,7 +219,7 @@ public class NhapHangGUI extends JPanel implements ActionListener {
                     return;
                 }
                 CT_NhapHangGUI chitiet = new CT_NhapHangGUI(maNV, maNCC);
-                pnhBUS.addDTO(chitiet.getDTOContent());
+                pnhBLL.addDTO(chitiet.getDTOContent());
                 cleanView();
             }
         });
@@ -240,7 +240,7 @@ public class NhapHangGUI extends JPanel implements ActionListener {
         btnReFresh.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                outModel(model, (ArrayList<phieunhaphang>) pnhBUS.getList());
+                outModel(model, (ArrayList<phieunhaphang>) pnhBLL.getList());
             }
         });
 
@@ -416,7 +416,7 @@ public class NhapHangGUI extends JPanel implements ActionListener {
         double max = txtMaxPrice.getText().equals("") ? 99999999 : Double.parseDouble(txtMaxPrice.getText());
         double min = txtMinPrice.getText().equals("") ? 0 : Double.parseDouble(txtMinPrice.getText());
 
-        outModel(model, pnhBUS.search(mm, yyyy, max, min, maPNH));
+        outModel(model, pnhBLL.search(mm, yyyy, max, min, maPNH));
     }
 
     public void cleanView() {
@@ -444,10 +444,10 @@ public class NhapHangGUI extends JPanel implements ActionListener {
 
     public void list() // Chép ArrayList lên table
     {
-        if (pnhBUS.getList() == null) {
-            pnhBUS.list();
+        if (pnhBLL.getList() == null) {
+            pnhBLL.list();
         }
-        ArrayList<phieunhaphang> hd = (ArrayList<phieunhaphang>) pnhBUS.getList();
+        ArrayList<phieunhaphang> hd = (ArrayList<phieunhaphang>) pnhBLL.getList();
         model.setRowCount(0);
         outModel(model, hd);
     }

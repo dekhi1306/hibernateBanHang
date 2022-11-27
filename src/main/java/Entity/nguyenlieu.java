@@ -24,5 +24,12 @@ public class nguyenlieu {
     private int amount;
     @Column
     private float price;
-       
+    
+    public void addAmount(int amount) {
+        this.amount += amount;
+    }
+    
+    public void subtractAmount(int amount) {
+        this.amount -= amount;
+    }
 }

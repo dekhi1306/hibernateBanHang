@@ -35,5 +35,15 @@ public class ct_phieunhaphang {
     
     @Column
     private float total_money;
+
+    public ct_phieunhaphang(int id_PNH, int id_NL, int amount, float price, float total_money) {
+        this.id_PNH = id_PNH;
+        this.id_NL = id_NL;
+        this.amount = amount;
+        this.price = price;
+        this.total_money = total_money;
+    }
+
+    
    
 }

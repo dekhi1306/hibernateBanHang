@@ -56,7 +56,7 @@ public class ct_PNHBLL {
         }
     }
     
-    public void deleteByCode(int idPNH, int idNL) {
+    public void deleteByID(int idPNH, int idNL) {
         for (ct_phieunhaphang ctpnh : ct_pnhBLL) {
             if (ctpnh.getId_PNH() == idPNH && ctpnh.getId_NL() == idNL) {
                 ct_pnhBLL.remove(ctpnh);

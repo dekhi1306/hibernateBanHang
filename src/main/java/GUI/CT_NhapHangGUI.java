@@ -5,10 +5,10 @@
  */
 package GUI;
 
-import BUS.NguyenLieuBUS;
+import BLL.NguyenLieuBLL;
 import BLL.PhieuNhapHangBLL;
 import BLL.ct_PNHBLL;
-import Entity.NguyenLieuDTO;
+import Entity.nguyenlieu;
 import Entity.ct_phieunhaphang;
 import Entity.phieunhaphang;
 import java.awt.Color;
@@ -44,9 +44,9 @@ import javax.swing.table.DefaultTableModel;
  */
 class CT_NhapHangGUI extends JFrame implements ActionListener {
 
-    private ct_PNHBLL ctBUS = new ct_PNHBLL();
-    private PhieuNhapHangBLL pnhBUS = new PhieuNhapHangBLL();
-    private NguyenLieuBUS nlBUS = new NguyenLieuBUS();
+    private ct_PNHBLL ctBLL = new ct_PNHBLL();
+    private PhieuNhapHangBLL pnhBLL = new PhieuNhapHangBLL();
+    private NguyenLieuBLL nlBLL = new NguyenLieuBLL();
     private int maPhieuPhapHang;
     private int maNV, maNCC;
     private JTextField txtMaNL, txtSL, txtGiaBan, txtThanhTien;
@@ -60,7 +60,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
     public CT_NhapHangGUI(String maPhieuPhapHang) {
         this.maPhieuPhapHang = Integer.parseInt(maPhieuPhapHang.trim());
         flag = false;
-        ctBUS.listByidPNH(Integer.parseInt(maPhieuPhapHang.trim()));
+        ctBLL.listByidPNH(Integer.parseInt(maPhieuPhapHang.trim()));
         init();
     }
 
@@ -68,13 +68,13 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
         this.maNV = maNV;
         this.maNCC = maNCC;
         phieunhaphang pnh = new phieunhaphang(maNCC, maNV, LocalDate.now(), 0.0f);
-        pnhBUS.add(pnh);
-        maPhieuPhapHang = pnhBUS.getList().get(0).getId_PNH();
+        pnhBLL.add(pnh);
+        maPhieuPhapHang = pnhBLL.getList().get(0).getId_PNH();
         init();
     }
 
     public void init() {
-        nlBUS.list();
+        nlBLL.list();
         setTitle("Chi tiết phiếu nhập");
         setSize(DWIDTH, 450);
         getContentPane().setBackground(new Color(25, 25, 34));
@@ -191,11 +191,11 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                     int soLuong = Math.abs(sl);
                     boolean flag2 = false;
 
-                    if (ctBUS.getList() != null) {
-                        for (int i = 0; i < ctBUS.getList().size(); i++) {
-                            if (ctBUS.getList().get(i).getId_NL() == maNL) {
+                    if (ctBLL.getList() != null) {
+                        for (int i = 0; i < ctBLL.getList().size(); i++) {
+                            if (ctBLL.getList().get(i).getId_NL() == maNL) {
                                 flag = true;
-                                if (ctBUS.getList().get(i).getAmount() >= soLuong) {
+                                if (ctBLL.getList().get(i).getAmount() >= soLuong) {
                                     flag2 = true;
                                     break;
                                 }
@@ -220,32 +220,32 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                         return;
                     }
 
-                    NguyenLieuDTO nl = null;
-                    for (NguyenLieuDTO nguyenLieuDTO : nlBUS.getNlBUS()) {
-                        if (nguyenLieuDTO.getId_NL() == maNL) {
-                            nl = nguyenLieuDTO;
+                    nguyenlieu nl = null;
+                    for (nguyenlieu nguyenlieu : nlBLL.getList()) {
+                        if (nguyenlieu.getId_NL() == maNL) {
+                            nl = nguyenlieu;
                         }
                     }
-                    for (int i = 0; i < ctBUS.getList().size(); i++) {
-                        if (ctBUS.getList().get(i).getId_NL() == maNL) {
-                            if (ctBUS.getList().get(i).getAmount() == soLuong) {
-                                ctBUS.deleteByCode(maPhieuPhapHang, maNL);
+                    for (int i = 0; i < ctBLL.getList().size(); i++) {
+                        if (ctBLL.getList().get(i).getId_NL() == maNL) {
+                            if (ctBLL.getList().get(i).getAmount() == soLuong) {
+                                ctBLL.deleteByID(maPhieuPhapHang, maNL);
                                 break;
                             }
-                            ctBUS.getList().get(i).setAmount(ctBUS.getList().get(i).getAmount() - soLuong);
+                            ctBLL.getList().get(i).setAmount(ctBLL.getList().get(i).getAmount() - soLuong);
                             float tongGia = (float) (soLuong * 1.0 * nl.getPrice());
-                            ctBUS.getList().get(i).setTotal_money(ctBUS.getList().get(i).getTotal_money() - tongGia);
+                            ctBLL.getList().get(i).setTotal_money(ctBLL.getList().get(i).getTotal_money() - tongGia);
                             try {
-                                ctBUS.set(ctBUS.getList().get(i));
+                                ctBLL.set(ctBLL.getList().get(i));
                             } catch (FileNotFoundException ex) {
                                 Logger.getLogger(CT_NhapHangGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     }
-                    nlBUS.subtractAmount(nl, soLuong);
+                    nlBLL.subtractAmount(nl, soLuong);
                     cleanView();
                     tbl.clearSelection();
-                    outModel(model, (ArrayList<ct_phieunhaphang>) ctBUS.getList());
+                    outModel(model, (ArrayList<ct_phieunhaphang>) ctBLL.getList());
 
                 }
             }
@@ -267,11 +267,11 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                     return;
                 }
                 boolean flag = false;
-                NguyenLieuDTO nl = null;
-                for (NguyenLieuDTO nguyenLieuDTO : nlBUS.getNlBUS()) {
-                    if (maNL == nguyenLieuDTO.getId_NL()) {
+                nguyenlieu nl = null;
+                for (nguyenlieu nguyenlieu : nlBLL.getList()) {
+                    if (maNL == nguyenlieu.getId_NL()) {
                         flag = true;
-                        nl = nguyenLieuDTO;
+                        nl = nguyenlieu;
                         break;
                     }
                 }
@@ -291,13 +291,13 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                 float tongGia = (float) (soLuong * 1.0 * nl.getPrice());
                 boolean updateOrAdd = false;
 
-                if (ctBUS.getList() != null) {
-                    for (int i = 0; i < ctBUS.getList().size(); i++) {
-                        if (ctBUS.getList().get(i).getId_NL() == maNL) {
-                            ctBUS.getList().get(i).setAmount(ctBUS.getList().get(i).getAmount() + soLuong);
-                            ctBUS.getList().get(i).setTotal_money(ctBUS.getList().get(i).getTotal_money() + tongGia);
+                if (ctBLL.getList() != null) {
+                    for (int i = 0; i < ctBLL.getList().size(); i++) {
+                        if (ctBLL.getList().get(i).getId_NL() == maNL) {
+                            ctBLL.getList().get(i).setAmount(ctBLL.getList().get(i).getAmount() + soLuong);
+                            ctBLL.getList().get(i).setTotal_money(ctBLL.getList().get(i).getTotal_money() + tongGia);
                             try {
-                                ctBUS.set(ctBUS.getList().get(i));
+                                ctBLL.set(ctBLL.getList().get(i));
                             } catch (FileNotFoundException ex) {
                                 Logger.getLogger(CT_NhapHangGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -309,26 +309,26 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
 
                 if (!updateOrAdd) {
                     ct_phieunhaphang ctNhapHangDTO = new ct_phieunhaphang(maPhieuPhapHang, maNL, soLuong, tongGia, nl.getPrice());
-                    ctBUS.add(ctNhapHangDTO);
+                    ctBLL.add(ctNhapHangDTO);
                 }
 
-                nlBUS.addAmount(nl, soLuong);
+                nlBLL.addAmount(nl, soLuong);
                 cleanView();
                 tbl.clearSelection();
-                outModel(model, (ArrayList<ct_phieunhaphang>) ctBUS.getList());
+                outModel(model, (ArrayList<ct_phieunhaphang>) ctBLL.getList());
             }
         });
 
         btnConfirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                phieunhaphang pnhdto = pnhBUS.getList().get(0);
+                phieunhaphang pnhdto = pnhBLL.getList().get(0);
                 float thanhTien = 0.f;
-                for (ct_phieunhaphang phieuNhapHangDTO : ctBUS.getList()) {
+                for (ct_phieunhaphang phieuNhapHangDTO : ctBLL.getList()) {
                     thanhTien += phieuNhapHangDTO.getTotal_money();
                 }
                 pnhdto.setTotal_money(thanhTien);
-                pnhBUS.set(pnhdto);
+                pnhBLL.set(pnhdto);
                 JOptionPane.showMessageDialog(null ,"Nhập hàng thành công !!!", "Success", 
                             JOptionPane.INFORMATION_MESSAGE);
                 dispose();
@@ -375,8 +375,8 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
         scroll.setBackground(null);
 
         itemView.add(scroll);
-        if (ctBUS.getList() != null && !ctBUS.getList().isEmpty()) {
-            outModel(model, (ArrayList<ct_phieunhaphang>) ctBUS.getList());
+        if (ctBLL.getList() != null && !ctBLL.getList().isEmpty()) {
+            outModel(model, (ArrayList<ct_phieunhaphang>) ctBLL.getList());
         }
         add(itemView);
         /**
@@ -389,9 +389,9 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                     String maNL = tbl.getModel().getValueAt(i, 0).toString();
                     txtMaNL.setText(maNL);
                     String nameString = "";
-                    for (NguyenLieuDTO nguyenLieuDTO : nlBUS.getNlBUS()) {
-                        if (nguyenLieuDTO.getId_NL() == Integer.parseInt(maNL)) {
-                            nameString = nguyenLieuDTO.getName();
+                    for (nguyenlieu nguyenlieu : nlBLL.getList()) {
+                        if (nguyenlieu.getId_NL() == Integer.parseInt(maNL)) {
+                            nameString = nguyenlieu.getName();
                             break;
                         }
                     }
@@ -428,7 +428,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
     }
 
     public phieunhaphang getDTOContent() {
-        return pnhBUS.getList().get(0);
+        return pnhBLL.getList().get(0);
     }
 
     @Override
@@ -437,17 +437,17 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
             int mess = JOptionPane.showConfirmDialog(null, "Xác nhận hủy nhập hàng", "Thông báo", JOptionPane.YES_NO_OPTION);
             if (mess == 0) { //yes
 
-                for (int i = 0; i < ctBUS.getList().size(); i++) {
-                    for (NguyenLieuDTO nguyenLieuDTO : nlBUS.getNlBUS()) {
-                        if (nguyenLieuDTO.getId_NL() == ctBUS.getList().get(i).getId_NL()) {
-                            nlBUS.subtractAmount(nguyenLieuDTO, ctBUS.getList().get(i).getAmount());
+                for (int i = 0; i < ctBLL.getList().size(); i++) {
+                    for (nguyenlieu nguyenlieu : nlBLL.getList()) {
+                        if (nguyenlieu.getId_NL() == ctBLL.getList().get(i).getId_NL()) {
+                            nlBLL.subtractAmount(nguyenlieu, ctBLL.getList().get(i).getAmount());
                             break;
                         }
                     }
                 }
 
-                ctBUS.delete(maPhieuPhapHang);
-                pnhBUS.delete(maPhieuPhapHang);
+                ctBLL.delete(maPhieuPhapHang);
+                pnhBLL.delete(maPhieuPhapHang);
                 JOptionPane.showMessageDialog(null ,"Hủy phiếu nhập hàng thành công !!!", "Success", 
                             JOptionPane.INFORMATION_MESSAGE);
                 dispose();
