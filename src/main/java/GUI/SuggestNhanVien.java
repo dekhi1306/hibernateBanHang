@@ -5,9 +5,9 @@
  */
 package GUI;
 
-import BLL.NhanVienBUS;
-import DTO.Gender;
-import DTO.NhanVienDTO;
+import BLL.NhanVienBLL;
+import Entity.Gender;
+import Entity.nhanvien;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -42,7 +42,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class SuggestNhanVien extends JDialog {
 
-    private NhanVienBUS nvBUS = new NhanVienBUS();
+    private NhanVienBLL nvBUS = new NhanVienBLL();
     private JTextField txtMaNV, txtTen, txtPhai, txtTuoi;
     private DefaultTableModel model;
     private JTable tbl;
@@ -330,10 +330,10 @@ public class SuggestNhanVien extends JDialog {
         setVisible(true);
     }
 
-    public void outModel(DefaultTableModel model, ArrayList<NhanVienDTO> sp) {
+    public void outModel(DefaultTableModel model, ArrayList<nhanvien> sp) {
         Vector data;
         model.setRowCount(0);
-        for (NhanVienDTO s : sp) {
+        for (nhanvien s : sp) {
             data = new Vector();
             data.add(" " + s.getId_NV());
             data.add(" " + s.getName());
@@ -352,10 +352,10 @@ public class SuggestNhanVien extends JDialog {
     }
 
     public void listNV() {
-        if (nvBUS.getNvBUS() == null) {
+        if (nvBUS.getList() == null) {
             nvBUS.list();
         }
-        ArrayList<NhanVienDTO> nv = (ArrayList<NhanVienDTO>) nvBUS.getNvBUS();
+        ArrayList<nhanvien> nv = (ArrayList<nhanvien>) nvBUS.getList();
         model.setRowCount(0);
         outModel(model, nv);
     }
