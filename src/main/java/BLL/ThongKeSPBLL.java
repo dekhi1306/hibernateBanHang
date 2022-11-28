@@ -7,7 +7,7 @@ package BLL;
 
 import DAL.ThongKeSPDAL;
 import Entity.thongkeSP;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,10 +15,11 @@ import java.util.List;
  */
 public class ThongKeSPBLL {
     
-    public List<thongkeSP> getChart (String nameLoai){
+    public ArrayList<thongkeSP> getChart (String nameLoai){
         ThongKeSPDAL tkDAO = new ThongKeSPDAL();
-        List<thongkeSP> tks = tkDAO.getChart(nameLoai);
+        ArrayList<thongkeSP> tks = tkDAO.getChart(nameLoai);
         return tks;
     }
-
+ 
 }
+

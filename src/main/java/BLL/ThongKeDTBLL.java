@@ -8,7 +8,7 @@ package BLL;
 import DAL.ThongKeDTDAL;
 import Entity.thongkeDT;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,9 +23,9 @@ public class ThongKeDTBLL {
         pnhBLL.list();
     }
     
-    public List<thongkeDT> getChartByTime (LocalDate startDate , LocalDate endDate){
+    public ArrayList<thongkeDT> getChartByTime (LocalDate startDate , LocalDate endDate){
         ThongKeDTDAL tkDAO = new ThongKeDTDAL();
-        List<thongkeDT> tks = tkDAO.getChartByTime(startDate, endDate);
+        ArrayList<thongkeDT> tks = tkDAO.getChartByTime(startDate, endDate);
         return tks;
     }
 

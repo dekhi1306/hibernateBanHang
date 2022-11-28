@@ -36,9 +36,6 @@ public class phieunhaphang {
     
     @Column
     private float total_money;
-    
-//    @OneToMany (mappedBy = "ct_phieunhaphang")
-//    private List<ct_phieunhaphang> listCT_PNH;
 
     public phieunhaphang(int id_NCC, int id_NV, LocalDate date_add, float total_money) {
         this.nhacc.setId_NCC(id_NCC);
