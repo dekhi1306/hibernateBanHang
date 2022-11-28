@@ -5,7 +5,7 @@
  */
 package DAL;
 
-import Entity.thongke;
+import Entity.thongkeDT;
 import java.time.LocalDate;
 import java.util.List;
 import org.hibernate.Session;
@@ -17,16 +17,16 @@ import org.hibernate.Session;
  *
  * @author ACER
  */
-public class ThongKeDAL { 
+public class ThongKeDTDAL { 
     private Session session;
     
-    public ThongKeDAL()
+    public ThongKeDTDAL()
     {
         session = HibernateUtils.getSessionFactory().openSession();
     }
     
-    public List<thongke> getChartByTime (LocalDate startDate , LocalDate endDate){
-        List<thongke> tk;
+    public List<thongkeDT> getChartByTime (LocalDate startDate , LocalDate endDate){
+        List<thongkeDT> tk;
         session.beginTransaction();
         String sql = "SELECT cthd.name,SUM(cthd.price*cthd.amount) AS tong FROM ct_hoadon AS cthd "
                 + "INNER JOIN hoadon AS hd ON cthd.id_HD = hd.id "

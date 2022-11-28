@@ -9,11 +9,11 @@ package Entity;
  *
  * @author Thuan Vo
  */
-public class thongke {
+public class thongkeDT {
     private String nameSP;
     private int doanhThu;
 
-    public thongke() {
+    public thongkeDT() {
     }
 
     public String getNameSP() {
