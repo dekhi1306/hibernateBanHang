@@ -6,9 +6,7 @@
 package DAL;
 
 import Entity.thongke;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -19,10 +17,10 @@ import org.hibernate.Session;
  *
  * @author ACER
  */
-public class ThongKeDAO { 
+public class ThongKeDAL { 
     private Session session;
     
-    public ThongKeDAO()
+    public ThongKeDAL()
     {
         session = HibernateUtils.getSessionFactory().openSession();
     }

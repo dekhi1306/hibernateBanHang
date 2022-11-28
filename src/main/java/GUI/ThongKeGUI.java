@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import BLL.ThongKeBUS;
+import BLL.ThongKeBLL;
 import Entity.thongke;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
@@ -36,7 +36,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author ACER
  */
 public class ThongKeGUI extends JPanel{
-    ThongKeBUS tkBUS = new ThongKeBUS();
+    ThongKeBLL tkBLL = new ThongKeBLL();
     private int DEFAUTL_WIDTH;
     private JLabel lbDateStart,lbDateEnd;
     private JPanel panel;
@@ -113,7 +113,7 @@ public class ThongKeGUI extends JPanel{
                 return;
             }
 
-            List<thongke> tks = tkBUS.getChartByTime(startDate,endDate);
+            List<thongke> tks = tkBLL.getChartByTime(startDate,endDate);
             for(thongke tk : tks){
                 dcd.setValue(tk.getDoanhThu(), "doanhthu", tk.getNameSP());
                 System.out.println(tk.getNameSP());

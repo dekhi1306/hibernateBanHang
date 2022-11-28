@@ -5,28 +5,26 @@
  */
 package BLL;
 
-import DAL.ThongKeDAO;
+import DAL.ThongKeDAL;
 import Entity.thongke;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
  *
  * @author ACER
  */
-public class ThongKeBUS {
+public class ThongKeBLL {
     private HoaDonBLL hdBLL = new HoaDonBLL();
     private PhieuNhapHangBLL pnhBLL = new PhieuNhapHangBLL();
-    public ThongKeBUS()
+    public ThongKeBLL()
     {
         hdBLL.list();
         pnhBLL.list();
     }
     
     public List<thongke> getChartByTime (LocalDate startDate , LocalDate endDate){
-        ThongKeDAO tkDAO = new ThongKeDAO();
+        ThongKeDAL tkDAO = new ThongKeDAL();
         List<thongke> tks = tkDAO.getChartByTime(startDate, endDate);
         return tks;
     }
