@@ -207,11 +207,11 @@ public class CT_HoaDonGUI extends JFrame {
         model.setRowCount(0);
         for (ct_hoadon h : hd) {
             data = new Vector();
-            data.add(h.getId_SP());
+            data.add(h.getSanpham().getId_SP());
             data.add(h.getName());
             data.add(h.getAmount());
             data.add(h.getPrice());
-            data.add(h.getId_HD());
+            data.add(h.getHoadon().getId());
             model.addRow(data);
         }
         tbl.setModel(model);

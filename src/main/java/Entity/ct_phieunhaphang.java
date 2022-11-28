@@ -18,14 +18,15 @@ import lombok.Data;
 @Table
 public class ct_phieunhaphang {
     @Id
+    private int id;
+    
     @ManyToOne
     @JoinColumn(name="id_PNH")
-    private int id_PNH;
+    private phieunhaphang phieuNH;
     
-    @Id
     @ManyToOne
     @JoinColumn(name="id_NL")
-    private int id_NL;
+    private nguyenlieu nguyenlieu;
     
     @Column
     private int amount;
@@ -37,8 +38,8 @@ public class ct_phieunhaphang {
     private float total_money;
 
     public ct_phieunhaphang(int id_PNH, int id_NL, int amount, float price, float total_money) {
-        this.id_PNH = id_PNH;
-        this.id_NL = id_NL;
+        this.phieuNH.setId_PNH(id_PNH);
+        this.nguyenlieu.setId_NL(id_NL);
         this.amount = amount;
         this.price = price;
         this.total_money = total_money;

@@ -433,8 +433,8 @@ public class NhapHangGUI extends JPanel implements ActionListener {
         for (phieunhaphang h : hd) {
             data = new Vector();
             data.add(h.getId_PNH());
-            data.add(h.getId_NCC());
-            data.add(h.getId_NV());
+            data.add(h.getNhacc().getId_NCC());
+            data.add(h.getNhanvien().getId_NV());
             data.add(h.getDate_add());
             data.add(h.getTotal_money());
             model.addRow(data);

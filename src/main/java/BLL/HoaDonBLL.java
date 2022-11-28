@@ -165,4 +165,13 @@ public class HoaDonBLL {
         }
         return ds;
     }
+    
+    public static void main(String[] args){
+        HoaDonBLL hd = new HoaDonBLL();
+        hd.list();
+        List<hoadon> l = hd.getList();
+        for(hoadon c: l){
+            System.out.println(c.getId()+" "+c.getTotal_money());
+        }
+    }
 }

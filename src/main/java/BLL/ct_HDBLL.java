@@ -55,7 +55,7 @@ public class ct_HDBLL {
         int idHD = Integer.parseInt(id);
         list();
         for (ct_hoadon ct : ct_hdBLL) {
-            if (ct.getId_HD() == idHD) {
+            if (ct.getHoadon().getId() == idHD) {
                 ct_hdBLL.remove(ct);
                 ct_HDDAL cthdDAO = new ct_HDDAL();
                 cthdDAO.deleteCTHD(ct);
@@ -67,7 +67,7 @@ public class ct_HDBLL {
     public void deleteByIdSP(String id) {
         int idSP = Integer.parseInt(id);
         for (ct_hoadon ct : ct_hdBLL) {
-            if (ct.getId_SP() == idSP) {
+            if (ct.getSanpham().getId_SP() == idSP) {
                 ct_hdBLL.remove(ct);
                 ct_HDDAL cthdDAO = new ct_HDDAL();
                 cthdDAO.deleteCTHD(ct);
@@ -78,7 +78,7 @@ public class ct_HDBLL {
     
     public void set(ct_hoadon cthdDTO) {
         for (int i = 0; i < ct_hdBLL.size(); i++) {
-            if (ct_hdBLL.get(i).getId_HD() == cthdDTO.getId_HD()) {
+            if (ct_hdBLL.get(i).getHoadon().getId() == cthdDTO.getHoadon().getId()) {
                 ct_hdBLL.set(i, cthdDTO);
                 ct_HDDAL cthdDAO = new ct_HDDAL();
                 cthdDAO.updateCTHD(cthdDTO);

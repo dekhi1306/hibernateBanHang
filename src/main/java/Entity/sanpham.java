@@ -5,8 +5,6 @@
  */
 package Entity;
 
-import java.sql.Timestamp;
-import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -17,25 +15,26 @@ import lombok.Data;
 @Data
 @Entity
 @Table
-public class hoadon {
+public class sanpham {
     @Id
-    private int id;
+    private int id_SP;
     
     @ManyToOne
-    @JoinColumn(name="id_KH")
-    private khachhang id_KH;
+    @JoinColumn(name="id_Loai")
+    private loai loai;
     
-    @ManyToOne
-    @JoinColumn(name="id_NV")
-    private nhanvien id_NV;
-    
-    @Column
-    private float total_money;
+    @Column 
+    private String name;
     
     @Column
-    private Timestamp create_day;
+    private String description;
     
-    @OneToMany (mappedBy = "hoadon")
-    private List<ct_hoadon> listCT_HoaDon;
-
+    @Column
+    private int amount;
+    
+    @Column
+    private float price;
+    
+    @Column
+    private String img;
 }

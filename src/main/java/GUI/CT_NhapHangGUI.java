@@ -193,7 +193,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
 
                     if (ctBLL.getList() != null) {
                         for (int i = 0; i < ctBLL.getList().size(); i++) {
-                            if (ctBLL.getList().get(i).getId_NL() == maNL) {
+                            if (ctBLL.getList().get(i).getNguyenlieu().getId_NL() == maNL) {
                                 flag = true;
                                 if (ctBLL.getList().get(i).getAmount() >= soLuong) {
                                     flag2 = true;
@@ -227,7 +227,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
                         }
                     }
                     for (int i = 0; i < ctBLL.getList().size(); i++) {
-                        if (ctBLL.getList().get(i).getId_NL() == maNL) {
+                        if (ctBLL.getList().get(i).getNguyenlieu().getId_NL() == maNL) {
                             if (ctBLL.getList().get(i).getAmount() == soLuong) {
                                 ctBLL.deleteByID(maPhieuPhapHang, maNL);
                                 break;
@@ -293,7 +293,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
 
                 if (ctBLL.getList() != null) {
                     for (int i = 0; i < ctBLL.getList().size(); i++) {
-                        if (ctBLL.getList().get(i).getId_NL() == maNL) {
+                        if (ctBLL.getList().get(i).getNguyenlieu().getId_NL() == maNL) {
                             ctBLL.getList().get(i).setAmount(ctBLL.getList().get(i).getAmount() + soLuong);
                             ctBLL.getList().get(i).setTotal_money(ctBLL.getList().get(i).getTotal_money() + tongGia);
                             try {
@@ -418,7 +418,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
         model.setRowCount(0);
         for (ct_phieunhaphang h : ctpnh) {
             data = new Vector();
-            data.add(h.getId_NL());
+            data.add(h.getNguyenlieu().getId_NL());
             data.add(h.getAmount());
             data.add(h.getPrice());
             data.add(h.getTotal_money());
@@ -439,7 +439,7 @@ class CT_NhapHangGUI extends JFrame implements ActionListener {
 
                 for (int i = 0; i < ctBLL.getList().size(); i++) {
                     for (nguyenlieu nguyenlieu : nlBLL.getList()) {
-                        if (nguyenlieu.getId_NL() == ctBLL.getList().get(i).getId_NL()) {
+                        if (nguyenlieu.getId_NL() == ctBLL.getList().get(i).getNguyenlieu().getId_NL()) {
                             nlBLL.subtractAmount(nguyenlieu, ctBLL.getList().get(i).getAmount());
                             break;
                         }

@@ -27,6 +27,7 @@
         <mapping class="Entity.hoadon" />
         <mapping class="Entity.ct_hoadon" />
         <mapping class="Entity.loai" />
+        <mapping class="Entity.sanpham" />
         
     </session-factory>
 </hibernate-configuration>

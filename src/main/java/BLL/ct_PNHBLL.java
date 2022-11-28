@@ -47,7 +47,7 @@ public class ct_PNHBLL {
 
     public void delete(int id_PNH) {
         for (ct_phieunhaphang ctpnh : ct_pnhBLL) {
-            if (ctpnh.getId_PNH() == id_PNH) {
+            if (ctpnh.getPhieuNH().getId_PNH() == id_PNH) {
                 ct_pnhBLL.remove(ctpnh);
                 ct_PNHDAL dal = new ct_PNHDAL();
                 dal.deleteCTPNH(ctpnh);
@@ -58,7 +58,7 @@ public class ct_PNHBLL {
     
     public void deleteByID(int idPNH, int idNL) {
         for (ct_phieunhaphang ctpnh : ct_pnhBLL) {
-            if (ctpnh.getId_PNH() == idPNH && ctpnh.getId_NL() == idNL) {
+            if (ctpnh.getPhieuNH().getId_PNH() == idPNH && ctpnh.getNguyenlieu().getId_NL() == idNL) {
                 ct_pnhBLL.remove(ctpnh);
                 ct_PNHDAL dal = new ct_PNHDAL();
                 dal.deleteCTPNH(ctpnh);
@@ -71,5 +71,5 @@ public class ct_PNHBLL {
         ct_PNHDAL dal = new ct_PNHDAL();
         dal.updateCTPNH(ctpnh);
     }
-
+    
 }

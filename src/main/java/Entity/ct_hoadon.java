@@ -17,14 +17,15 @@ import lombok.Data;
 @Table
 public class ct_hoadon {
     @Id
+    private String id;
+    
     @ManyToOne
     @JoinColumn(name="id_HD")
-    private int id_HD;
+    private hoadon hoadon;
     
-    @Id
     @ManyToOne
     @JoinColumn(name="id_SP")
-    private int id_SP;
+    private sanpham sanpham;
     
     @Column
     private String name;
