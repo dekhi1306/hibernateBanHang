@@ -25,6 +25,7 @@
         <mapping class="Entity.nhanvien" />
         <mapping class="Entity.nguyenlieu" />
         <mapping class="Entity.hoadon" />
+        <mapping class="Entity.ct_hoadon" />
         
     </session-factory>
 </hibernate-configuration>
