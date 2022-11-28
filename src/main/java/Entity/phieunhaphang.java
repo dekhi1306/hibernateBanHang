@@ -37,6 +37,10 @@ public class phieunhaphang {
     @Column
     private float total_money;
 
+    public phieunhaphang() {
+    
+    }
+    
     public phieunhaphang(int id_NCC, int id_NV, LocalDate date_add, float total_money) {
         this.nhacc.setId_NCC(id_NCC);
         this.nhanvien.setId_NV(id_NV);

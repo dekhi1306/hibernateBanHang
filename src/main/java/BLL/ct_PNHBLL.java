@@ -71,5 +71,4 @@ public class ct_PNHBLL {
         ct_PNHDAL dal = new ct_PNHDAL();
         dal.updateCTPNH(ctpnh);
     }
-    
 }

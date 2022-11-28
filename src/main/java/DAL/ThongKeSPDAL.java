@@ -43,9 +43,4 @@ public class ThongKeSPDAL {
         session.getTransaction().commit();
         return tk;
     }
-    
-    public static void main(String[] args){
-        ThongKeSPDAL tk=new ThongKeSPDAL();
-        tk.getChart("Bánh Mặn");
-    }
 }

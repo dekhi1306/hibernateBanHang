@@ -34,6 +34,6 @@ public class ct_hoadon {
     private int amount;
     
     @Column
-    private float price;
+    private int price;
   
 }

@@ -37,6 +37,9 @@ public class ct_phieunhaphang {
     @Column
     private float total_money;
 
+    public ct_phieunhaphang() {
+    }
+    
     public ct_phieunhaphang(int id_PNH, int id_NL, int amount, float price, float total_money) {
         this.phieuNH.setId_PNH(id_PNH);
         this.nguyenlieu.setId_NL(id_NL);

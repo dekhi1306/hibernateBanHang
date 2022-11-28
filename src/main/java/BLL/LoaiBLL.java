@@ -32,8 +32,4 @@ public class LoaiBLL {
         loaiBLL = new ArrayList<>();
         loaiBLL = loaiDAO.loadLoai();
     }
-    
-    public static void main(String[] args){
-        
-    }
 }

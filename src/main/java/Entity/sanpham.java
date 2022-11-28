@@ -27,7 +27,7 @@ public class sanpham {
     private String name;
     
     @Column
-    private String description;
+    private String descrption;
     
     @Column
     private int amount;
